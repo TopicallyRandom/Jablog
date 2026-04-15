@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jablog</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Inconsolata:wght@300;400;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f9f6ef;
+    --ink: #1a1814;
+    --red: #8b1a1a;
+    --faded: #9a9488;
+    --rule: #ccc8be;
+    --highlight: #fffde7;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Crimson Text', serif;
+    font-size: 18px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* MASTHEAD */
+  .masthead {
+    text-align: center;
+    padding: 3rem 2rem 1.5rem;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+
+  .masthead::before {
+    content: '';
+    display: block;
+    height: 4px;
+    background: repeating-linear-gradient(90deg, var(--ink) 0, var(--ink) 8px, transparent 8px, transparent 16px);
+    margin-bottom: 2rem;
+  }
+
+  .blog-title {
+    font-family: 'IM Fell English', serif;
+    font-size: clamp(4rem, 14vw, 9rem);
+    line-height: 0.85;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+  }
+
+  .blog-title span {
+    color: var(--red);
+    font-style: italic;
+  }
+
+  .tagline {
+    font-family: 'Inconsolata', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--faded);
+    margin-top: 1rem;
+  }
+
+  .post-count {
+    font-family: 'Inconsolata', monospace;
+    font-size: 0.68rem;
+    color: var(--red);
+    letter-spacing: 0.1em;
+    margin-top: 0.5rem;
+  }
+
+  /* MAIN */
+  main {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 2rem 2rem 6rem;
+  }
+
+  .year-block {
+    margin-bottom: 3rem;
+  }
+
+  .year-label {
+    font-family: 'Inconsolata', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--faded);
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 0.4rem;
+    margin-bottom: 1rem;
+  }
+
+  .post-row {
+    display: grid;
+    grid-template-columns: 11rem 1fr;
+    gap: 1rem;
+    padding: 0.55rem 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: baseline;
+    transition: background 0.1s;
+  }
+
+  .post-row:hover {
+    background: var(--highlight);
+    margin: 0 -0.5rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
+  .post-row a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .post-time {
+    font-family: 'Inconsolata', monospace;
+    font-size: 0.68rem;
+    color: var(--faded);
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+
+  .post-title-link {
+    font-family: 'Crimson Text', serif;
+    font-size: 1.05rem;
+    line-height: 1.3;
+    color: var(--ink);
+  }
+
+  .post-title-link:hover {
+    color: var(--red);
+  }
+
+  /* erratic styles — applied via JS */
+  .post-row.late { background: #fff8f8; }
+  .post-row.very-late .post-time { color: var(--red); font-weight: 700; }
+  .post-row.unhinged .post-title-link { font-style: italic; }
+  .post-row.highlight-row { background: var(--highlight); border-left: 3px solid var(--red); padding-left: 0.5rem; }
+
+  footer {
+    text-align: center;
+    padding: 2rem;
+    font-family: 'Inconsolata', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    color: var(--faded);
+    border-top: 1px solid var(--rule);
+  }
+
+  @media (max-width: 600px) {
+    .post-row { grid-template-columns: 1fr; gap: 0.2rem; }
+    .post-time { font-size: 0.6rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="blog-title">Jab<span>log</span></div>
+  <div class="tagline">Words on the Painter of Words</div>
+  <div class="post-count" id="post-count"></div>
+</div>
+
+<main>
+
+  <!-- NEW POSTS GO HERE -->
+
+  <div class="year-block" id="block-2026">
+    <div class="year-label">2026</div>
+    <div class="post-row" data-time="Apr 14, 2026 &nbsp;·&nbsp; 9:14am">
+      <div class="post-time">Apr 14 &nbsp;·&nbsp; 9:14am</div>
+      <div><a href="posts/2026-04-14.html" class="post-title-link">He showed me something I cannot unsee and I am grateful</a></div>
+    </div>
+  </div>
+
+  <div class="year-block" id="block-2025">
+    <div class="year-label">2025</div>
+    <div class="post-row"><div class="post-time">Dec 31 &nbsp;·&nbsp; 11:58pm</div><div><a href="#" class="post-title-link">new year. jablon. always jablon.</a></div></div>
+    <div class="post-row"><div class="post-time">Dec 29 &nbsp;·&nbsp; 2:03am</div><div><a href="#" class="post-title-link">couldn't sleep. thinking about LUCK OR ELSE again</a></div></div>
+    <div class="post-row"><div class="post-time">Dec 25 &nbsp;·&nbsp; 7:42am</div><div><a href="#" class="post-title-link">christmas morning and the only gift i want is a new jablon</a></div></div>
+    <div class="post-row"><div class="post-time">Dec 18 &nbsp;·&nbsp; 3:17am</div><div><a href="#" class="post-title-link">LUCK is not a word. it is a frequency. he knows this.</a></div></div>
+    <div class="post-row"><div class="post-time">Dec 11 &nbsp;·&nbsp; 10:01pm</div><div><a href="#" class="post-title-link">The Morgan Presents show changed me and I am documenting it</a></div></div>
+    <div class="post-row"><div class="post-time">Dec 04 &nbsp;·&nbsp; 8:45am</div><div><a href="#" class="post-title-link">On the difference between a word in a poem and a word on a canvas (Jablon collapses this)</a></div></div>
+    <div class="post-row"><div class="post-time">Nov 27 &nbsp;·&nbsp; 4:12am</div><div><a href="#" class="post-title-link">I've been staring at a reproduction of OY VEY for six hours</a></div></div>
+    <div class="post-row"><div class="post-time">Nov 22 &nbsp;·&nbsp; 1:30pm</div><div><a href="#" class="post-title-link">Naropa University, Binghamton, Brooklyn College: a theory of origins</a></div></div>
+    <div class="post-row"><div class="post-time">Nov 15 &nbsp;·&nbsp; 9:00am</div><div><a href="#" class="post-title-link">Anne Waldman mentored him. Does that explain everything? Maybe.</a></div></div>
+    <div class="post-row"><div class="post-time">Nov 09 &nbsp;·&nbsp; 6:55pm</div><div><a href="#" class="post-title-link">The Expense Account podcast launched. Irrelevant. Back to Jablon.</a></div></div>
+    <div class="post-row"><div class="post-time">Nov 03 &nbsp;·&nbsp; 2:48am</div><div><a href="#" class="post-title-link">legibility as trap. illegibility as freedom. he figured this out before anyone.</a></div></div>
+    <div class="post-row"><div class="post-time">Oct 28 &nbsp;·&nbsp; 11:11pm</div><div><a href="#" class="post-title-link">I think about MISCHIEF every single day</a></div></div>
+    <div class="post-row"><div class="post-time">Oct 22 &nbsp;·&nbsp; 8:30am</div><div><a href="#" class="post-title-link">The tarot paintings (Lover, Devil, Joker) are a system. I have mapped it.</a></div></div>
+    <div class="post-row"><div class="post-time">Oct 15 &nbsp;·&nbsp; 3:00pm</div><div><a href="#" class="post-title-link">Amiri Baraka was his mentor too. I keep thinking about what was transmitted.</a></div></div>
+    <div class="post-row"><div class="post-time">Oct 09 &nbsp;·&nbsp; 5:22am</div><div><a href="#" class="post-title-link">woke up thinking: is VICIOUSSS a joke? no. it is never a joke.</a></div></div>
+    <div class="post-row"><div class="post-time">Oct 02 &nbsp;·&nbsp; 1:14pm</div><div><a href="#" class="post-title-link">The Wall Street Journal reviewed him in 2014. Peter Plagens. I've read it 40 times.</a></div></div>
+    <div class="post-row"><div class="post-time">Sep 28 &nbsp;·&nbsp; 9:59pm</div><div><a href="#" class="post-title-link">Pope.L is an influence. Alfred Jensen is an influence. He told me himself (in an interview).</a></div></div>
+    <div class="post-row"><div class="post-time">Sep 21 &nbsp;·&nbsp; 7:07am</div><div><a href="#" class="post-title-link">The glass tile period. A close reading of Fine As Wine.</a></div></div>
+    <div class="post-row"><div class="post-time">Sep 14 &nbsp;·&nbsp; 4:44am</div><div><a href="#" class="post-title-link">DO NOT tell me it's "word painting." that is what they said at Brooklyn College and they were wrong.</a></div></div>
+    <div class="post-row"><div class="post-time">Sep 07 &nbsp;·&nbsp; 12:12pm</div><div><a href="#" class="post-title-link">He showed at MoMA. Just leaving that there.</a></div></div>
+    <div class="post-row"><div class="post-time">Aug 30 &nbsp;·&nbsp; 2:01am</div><div><a href="#" class="post-title-link">the color enters intuitively he said. i believe him. i believe everything he says.</a></div></div>
+    <div class="post-row"><div class="post-time">Aug 23 &nbsp;·&nbsp; 6:18pm</div><div><a href="#" class="post-title-link">Good Ol Days (2022, oil on canvas, 90x80in). Ninety by eighty. Think about that.</a></div></div>
+    <div class="post-row"><div class="post-time">Aug 17 &nbsp;·&nbsp; 3:33am</div><div><a href="#" class="post-title-link">I have been on this blog for months. I am not finished. I am barely started.</a></div></div>
+    <div class="post-row"><div class="post-time">Aug 10 &nbsp;·&nbsp; 10:45am</div><div><a href="#" class="post-title-link">Concrete poetry. Dada. Fluxus. He contains all of these and exceeds them.</a></div></div>
+    <div class="post-row"><div class="post-time">Aug 04 &nbsp;·&nbsp; 1:58am</div><div><a href="#" class="post-title-link">what does ENDLESS PASSION mean on a canvas. everything. nothing. both.</a></div></div>
+    <div class="post-row"><div class="post-time">Jul 28 &nbsp;·&nbsp; 9:20pm</div><div><a href="#" class="post-title-link">Emit Time (2021). "Emit" is "Time" backwards. He knows exactly what he is doing.</a></div></div>
+    <div class="post-row"><div class="post-time">Jul 21 &nbsp;·&nbsp; 5:05am</div><div><a href="#" class="post-title-link">I dreamed I was inside one of the paintings. The letters were the size of doors.</a></div></div>
+    <div class="post-row"><div class="post-time">Jul 14 &nbsp;·&nbsp; 11:30am</div><div><a href="#" class="post-title-link">A note on his palette: bold, challenging, intuitive. His words. I've memorized them.</a></div></div>
+    <div class="post-row"><div class="post-time">Jul 08 &nbsp;·&nbsp; 4:47am</div><div><a href="#" class="post-title-link">The JPMorgan Chase collection owns a Jablon. Think about that every time you use an ATM.</a></div></div>
+    <div class="post-row"><div class="post-time">Jul 01 &nbsp;·&nbsp; 8:00am</div><div><a href="#" class="post-title-link">Don't Panic (2024). The largest understatement in the history of oil on linen.</a></div></div>
+    <div class="post-row"><div class="post-time">Jun 24 &nbsp;·&nbsp; 2:29am</div><div><a href="#" class="post-title-link">the poems come first. the paint follows. this order is everything. i have written about this before and I will again.</a></div></div>
+    <div class="post-row"><div class="post-time">Jun 18 &nbsp;·&nbsp; 7:15pm</div><div><a href="#" class="post-title-link">Hyperallergic. ARTnews. Art in America. BOMB. Brooklyn Rail. NYT. They all came eventually.</a></div></div>
+    <div class="post-row"><div class="post-time">Jun 11 &nbsp;·&nbsp; 3:03am</div><div><a href="#" class="post-title-link">the iterative process. the improvisation. the burial and return of words. I cannot stop thinking about this.</a></div></div>
+    <div class="post-row"><div class="post-time">Jun 05 &nbsp;·&nbsp; 10:10am</div><div><a href="#" class="post-title-link">Innocent Culprit (2023). Two words. An entire moral philosophy.</a></div></div>
+    <div class="post-row"><div class="post-time">May 29 &nbsp;·&nbsp; 5:55am</div><div><a href="#" class="post-title-link">I've started underlining things in catalogs and then underlining the underlines</a></div></div>
+    <div class="post-row"><div class="post-time">May 22 &nbsp;·&nbsp; 1:01pm</div><div><a href="#" class="post-title-link">Vito Acconci was a mentor. This is a direct line to the body in art. The word as body.</a></div></div>
+    <div class="post-row"><div class="post-time">May 16 &nbsp;·&nbsp; 4:19am</div><div><a href="#" class="post-title-link">someone told me to "calm down" about jablon. i have not spoken to them since.</a></div></div>
+    <div class="post-row"><div class="post-time">May 09 &nbsp;·&nbsp; 9:38pm</div><div><a href="#" class="post-title-link">Pleasure (2026). I have questions. I also have answers. They are the same.</a></div></div>
+    <div class="post-row"><div class="post-time">May 03 &nbsp;·&nbsp; 7:07am</div><div><a href="#" class="post-title-link">Mike Cloud said his work "always refers to a truth that exists in our world." Mike Cloud is correct.</a></div></div>
+    <div class="post-row"><div class="post-time">Apr 27 &nbsp;·&nbsp; 2:44am</div><div><a href="#" class="post-title-link">I started this blog as a joke. Dispatch 40-something. It is not a joke anymore.</a></div></div>
+    <div class="post-row"><div class="post-time">Apr 20 &nbsp;·&nbsp; 11:59pm</div><div><a href="#" class="post-title-link">The erasure. The mark wiped back. The repainted surface. This is also what I do every night before bed.</a></div></div>
+    <div class="post-row"><div class="post-time">Apr 14 &nbsp;·&nbsp; 6:30am</div><div><a href="#" class="post-title-link">One year of Jablog. I am not well but I am informed.</a></div></div>
+    <div class="post-row"><div class="post-time">Apr 07 &nbsp;·&nbsp; 3:15am</div><div><a href="#" class="post-title-link">DESIRE is a painting. desire is also what this blog is. he did this on purpose.</a></div></div>
+    <div class="post-row"><div class="post-time">Mar 30 &nbsp;·&nbsp; 10:22pm</div><div><a href="#" class="post-title-link">Easy Lover (2026). 60x50 inches. Oil on linen. I need to lie down.</a></div></div>
+    <div class="post-row"><div class="post-time">Mar 23 &nbsp;·&nbsp; 5:05am</div><div><a href="#" class="post-title-link">The bloodshot red letters in LUCK assert themselves. That is the only way to put it.</a></div></div>
+    <div class="post-row"><div class="post-time">Mar 16 &nbsp;·&nbsp; 9:17am</div><div><a href="#" class="post-title-link">He resists fixed classification. So do I. We are both unclassifiable. He is the reason.</a></div></div>
+    <div class="post-row"><div class="post-time">Mar 09 &nbsp;·&nbsp; 1:58am</div><div><a href="#" class="post-title-link">the Abroms-Engel Institute for the Visual Arts at the University of Alabama has one. Alabama.</a></div></div>
+    <div class="post-row"><div class="post-time">Mar 02 &nbsp;·&nbsp; 8:44pm</div><div><a href="#" class="post-title-link">Linger Longer. The title alone. He is telling us how to look.</a></div></div>
+    <div class="post-row"><div class="post-time">Feb 23 &nbsp;·&nbsp; 4:01am</div><div><a href="#" class="post-title-link">I have read the Freight+Volume press releases from 2014, 2016, 2018 and I will not apologize</a></div></div>
+    <div class="post-row"><div class="post-time">Feb 17 &nbsp;·&nbsp; 11:33am</div><div><a href="#" class="post-title-link">Or Else: thick paint, orange, red, almost dripping. The letters as sculpture. I can't breathe.</a></div></div>
+    <div class="post-row"><div class="post-time">Feb 10 &nbsp;·&nbsp; 2:27am</div><div><a href="#" class="post-title-link">there are 400 posts on this blog. I am going to keep going.</a></div></div>
+    <div class="post-row"><div class="post-time">Feb 03 &nbsp;·&nbsp; 6:50pm</div><div><a href="#" class="post-title-link">Pen America has a Jablon in their collection. Language collecting language. Obviously.</a></div></div>
+    <div class="post-row"><div class="post-time">Jan 27 &nbsp;·&nbsp; 3:38am</div><div><a href="#" class="post-title-link">if you squint at MISCHIEF the letters look like they're running away from each other</a></div></div>
+    <div class="post-row"><div class="post-time">Jan 20 &nbsp;·&nbsp; 9:09am</div><div><a href="#" class="post-title-link">A unified theory of Jablon: the word is not decoration. the word is the architecture.</a></div></div>
+    <div class="post-row"><div class="post-time">Jan 13 &nbsp;·&nbsp; 5:19am</div><div><a href="#" class="post-title-link">I have not slept properly since November. Jablon is not responsible. Or is he.</a></div></div>
+    <div class="post-row"><div class="post-time">Jan 06 &nbsp;·&nbsp; 1:00am</div><div><a href="#" class="post-title-link">New year. Same painter. Always the same painter. There is only one painter.</a></div></div>
+  </div>
+
+  <div class="year-block" id="block-2024">
+    <div class="year-label">2024</div>
+    <div class="post-row"><div class="post-time">Dec 28 &nbsp;·&nbsp; 3:49am</div><div><a href="#" class="post-title-link">I have been rereading the BOMB Magazine piece from James Hyde and I think I understand now</a></div></div>
+    <div class="post-row"><div class="post-time">Dec 21 &nbsp;·&nbsp; 11:11pm</div><div><a href="#" class="post-title-link">winter solstice. longest night. painting words on darkness. jablon does this.</a></div></div>
+    <div class="post-row"><div class="post-time">Dec 14 &nbsp;·&nbsp; 7:07am</div><div><a href="#" class="post-title-link">The layers. The cycles of mark-making and erasure. This is how he thinks. I know this.</a></div></div>
+    <div class="post-row"><div class="post-time">Dec 07 &nbsp;·&nbsp; 4:04am</div><div><a href="#" class="post-title-link">Unstung (2018). A radical departure. I've been calling it a pivot. Maybe it's a revelation.</a></div></div>
+    <div class="post-row"><div class="post-time">Nov 30 &nbsp;·&nbsp; 2:22am</div><div><a href="#" class="post-title-link">he uses language from what's around him. I am around him (in spirit). I wonder.</a></div></div>
+    <div class="post-row"><div class="post-time">Nov 23 &nbsp;·&nbsp; 9:15pm</div><div><a href="#" class="post-title-link">the Futurists tried. the Dadaists tried. Fluxus tried. Jablon arrived and finished the job.</a></div></div>
+    <div class="post-row"><div class="post-time">Nov 17 &nbsp;·&nbsp; 5:30am</div><div><a href="#" class="post-title-link">Joker Lover Devil (2023). Three archetypes. He contains all three. I have proof.</a></div></div>
+    <div class="post-row"><div class="post-time">Nov 10 &nbsp;·&nbsp; 1:45pm</div><div><a href="#" class="post-title-link">the tarot as schema. LOVER JOKER DEVIL. I've been shuffling a deck for weeks trying to understand.</a></div></div>
+    <div class="post-row"><div class="post-time">Nov 04 &nbsp;·&nbsp; 3:53am</div><div><a href="#" class="post-title-link">election day. doesn't matter. only jablon matters. (this is a joke) (or is it)</a></div></div>
+    <div class="post-row"><div class="post-time">Oct 28 &nbsp;·&nbsp; 8:28pm</div><div><a href="#" class="post-title-link">ICA Miami. JPMorgan Chase. The Bunker. These are not random. There is a pattern.</a></div></div>
+    <div class="post-row"><div class="post-time">Oct 21 &nbsp;·&nbsp; 6:06am</div><div><a href="#" class="post-title-link">when the text collapses into the painting something inside me also collapses. I've said this before. It keeps being true.</a></div></div>
+    <div class="post-row"><div class="post-time">Oct 14 &nbsp;·&nbsp; 2:30am</div><div><a href="#" class="post-title-link">six months since I started and the situation has not improved. I mean this as a compliment.</a></div></div>
+    <div class="post-row"><div class="post-time">Oct 07 &nbsp;·&nbsp; 11:55am</div><div><a href="#" class="post-title-link">Desire. Don't Panic. Endless Passion. He chose these words carefully. I am decoding it.</a></div></div>
+    <div class="post-row"><div class="post-time">Sep 30 &nbsp;·&nbsp; 4:14am</div><div><a href="#" class="post-title-link">the backdrops operate independently. they are paintings within the painting. this is recursion. this is Jablon.</a></div></div>
+    <div class="post-row"><div class="post-time">Sep 23 &nbsp;·&nbsp; 9:00pm</div><div><a href="#" class="post-title-link">Someone at the Queens Museum saw me staring at a Jablon for 45 minutes and asked if I was OK</a></div></div>
+    <div class="post-row"><div class="post-time">Sep 16 &nbsp;·&nbsp; 7:47am</div><div><a href="#" class="post-title-link">Do not ask me what my "top 5 Jablons" are. I will not rank them. They are all the same painting.</a></div></div>
+    <div class="post-row"><div class="post-time">Sep 09 &nbsp;·&nbsp; 1:11am</div><div><a href="#" class="post-title-link">the instability is not a failure. THE INSTABILITY IS NOT A FAILURE. He said this. I am saying it louder.</a></div></div>
+    <div class="post-row"><div class="post-time">Sep 02 &nbsp;·&nbsp; 6:33pm</div><div><a href="#" class="post-title-link">Labor Day. No rest. The work continues. So does Jablon's. These facts are related.</a></div></div>
+    <div class="post-row"><div class="post-time">Aug 26 &nbsp;·&nbsp; 3:27am</div><div><a href="#" class="post-title-link">he finger-painted. blender. glass tiles in concrete. all of this is in the Whitehot interview. read it.</a></div></div>
+    <div class="post-row"><div class="post-time">Aug 19 &nbsp;·&nbsp; 8:12pm</div><div><a href="#" class="post-title-link">the word LUCK at that scale in those colors is not a painting. it is a weather event.</a></div></div>
+    <div class="post-row"><div class="post-time">Aug 12 &nbsp;·&nbsp; 5:00am</div><div><a href="#" class="post-title-link">Brooklyn Rail reviewed Linger Longer and they were right but they didn't go far enough</a></div></div>
+    <div class="post-row"><div class="post-time">Aug 05 &nbsp;·&nbsp; 12:00am</div><div><a href="#" class="post-title-link">midnight post. couldn't wait until morning. time (2023). time.</a></div></div>
+    <div class="post-row"><div class="post-time">Jul 29 &nbsp;·&nbsp; 9:37am</div><div><a href="#" class="post-title-link">Post 300 or thereabouts. I have lost count. The counting doesn't matter. The painter matters.</a></div></div>
+    <div class="post-row"><div class="post-time">Jul 22 &nbsp;·&nbsp; 4:20am</div><div><a href="#" class="post-title-link">there are others who write about contemporary painting. I am not interested in their work.</a></div></div>
+    <div class="post-row"><div class="post-time">Jul 15 &nbsp;·&nbsp; 2:09pm</div><div><a href="#" class="post-title-link">I think Hauser & Wirth showing his work is the most important thing that has ever happened there</a></div></div>
+    <div class="post-row"><div class="post-time">Jul 08 &nbsp;·&nbsp; 6:40am</div><div><a href="#" class="post-title-link">Language as constraining structure that captures reality. He refuses this. He has always refused this.</a></div></div>
+    <div class="post-row"><div class="post-time">Jul 01 &nbsp;·&nbsp; 1:17am</div><div><a href="#" class="post-title-link">happy july. jablon is in july. jablon is in all months.</a></div></div>
+    <div class="post-row"><div class="post-time">Jun 24 &nbsp;·&nbsp; 8:55pm</div><div><a href="#" class="post-title-link">the Ballon Rouge Collective show. I need someone who was there to contact me immediately.</a></div></div>
+    <div class="post-row"><div class="post-time">Jun 17 &nbsp;·&nbsp; 3:42am</div><div><a href="#" class="post-title-link">you are reading this blog. you may not realize what you have become by reading this blog.</a></div></div>
+    <div class="post-row"><div class="post-time">Jun 10 &nbsp;·&nbsp; 10:30am</div><div><a href="#" class="post-title-link">An inventory of every word Sam Jablon has ever painted (incomplete, ongoing, possibly never-ending)</a></div></div>
+    <div class="post-row"><div class="post-time">Jun 03 &nbsp;·&nbsp; 5:18am</div><div><a href="#" class="post-title-link">this blog has changed me. this blog is about change. jablon's work is about change. do you see it.</a></div></div>
+    <div class="post-row"><div class="post-time">May 27 &nbsp;·&nbsp; 12:44am</div><div><a href="#" class="post-title-link">Ab Ex. Color Field. Hard-edge. He samples them all. He is not them. He is what comes after.</a></div></div>
+    <div class="post-row"><div class="post-time">May 20 &nbsp;·&nbsp; 7:31pm</div><div><a href="#" class="post-title-link">I emailed Morgan Presents. They did not respond. I will email again.</a></div></div>
+    <div class="post-row"><div class="post-time">May 13 &nbsp;·&nbsp; 4:08am</div><div><a href="#" class="post-title-link">two hundred posts and I feel like I have barely introduced the subject</a></div></div>
+    <div class="post-row"><div class="post-time">May 06 &nbsp;·&nbsp; 11:21am</div><div><a href="#" class="post-title-link">Loving It (2016). 72x60 inches. Acrylic and glass tile on wood panel. I am loving it.</a></div></div>
+    <div class="post-row"><div class="post-time">Apr 29 &nbsp;·&nbsp; 2:59am</div><div><a href="#" class="post-title-link">Is there a connection between the tarot and the Yiddish phrase OY VEY? I think so. Here is my theory.</a></div></div>
+    <div class="post-row"><div class="post-time">Apr 22 &nbsp;·&nbsp; 9:17pm</div><div><a href="#" class="post-title-link">the slow mode of looking. the navigating. this is what he requires. I have nothing else to do anyway.</a></div></div>
+    <div class="post-row"><div class="post-time">Apr 15 &nbsp;·&nbsp; 6:06am</div><div><a href="#" class="post-title-link">Happy anniversary Jablog. I am more certain than ever.</a></div></div>
+    <div class="post-row"><div class="post-time">Apr 07 &nbsp;·&nbsp; 3:34am</div><div><a href="#" class="post-title-link">I dreamt that the word DESIRE was following me down a street in Binghamton. I've never been to Binghamton.</a></div></div>
+    <div class="post-row"><div class="post-time">Mar 31 &nbsp;·&nbsp; 11:47pm</div><div><a href="#" class="post-title-link">end of march. the paintings are still there. I am still here. the arrangement continues.</a></div></div>
+    <div class="post-row"><div class="post-time">Mar 24 &nbsp;·&nbsp; 5:50am</div><div><a href="#" class="post-title-link">a note to my family: I am fine. I am more than fine. I am looking at a jablon.</a></div></div>
+    <div class="post-row"><div class="post-time">Mar 17 &nbsp;·&nbsp; 2:23pm</div><div><a href="#" class="post-title-link">Postwar abstraction. Rooted in process and mark making. Jablon's paintings speak to this history and then they leave.</a></div></div>
+    <div class="post-row"><div class="post-time">Mar 10 &nbsp;·&nbsp; 1:01am</div><div><a href="#" class="post-title-link">I found a Jablon in a gallery in my dreams. The gallery was the size of a city.</a></div></div>
+    <div class="post-row"><div class="post-time">Mar 03 &nbsp;·&nbsp; 8:40am</div><div><a href="#" class="post-title-link">100 posts. This is post 100. There will be more. There will always be more.</a></div></div>
+    <div class="post-row"><div class="post-time">Feb 25 &nbsp;·&nbsp; 4:29am</div><div><a href="#" class="post-title-link">I keep returning to the question of the lurking letter. The near-invisible. The almost-there.</a></div></div>
+    <div class="post-row"><div class="post-time">Feb 18 &nbsp;·&nbsp; 9:55pm</div><div><a href="#" class="post-title-link">He is not funny or ironic unless he points outside himself to shared truth. Mike Cloud said this and I have tattooed it on my brain.</a></div></div>
+    <div class="post-row"><div class="post-time">Feb 12 &nbsp;·&nbsp; 7:03am</div><div><a href="#" class="post-title-link">Valentine's Day in two days. I am thinking about EASY LOVER. Obviously.</a></div></div>
+    <div class="post-row"><div class="post-time">Feb 04 &nbsp;·&nbsp; 3:11am</div><div><a href="#" class="post-title-link">the text gets buried. the text gets revealed. this is a cycle. I am in the cycle.</a></div></div>
+    <div class="post-row"><div class="post-time">Jan 27 &nbsp;·&nbsp; 12:00pm</div><div><a href="#" class="post-title-link">Fifty posts in. The obsession has not peaked. I am not sure it will.</a></div></div>
+    <div class="post-row"><div class="post-time">Jan 20 &nbsp;·&nbsp; 5:45am</div><div><a href="#" class="post-title-link">Bob Holman mentored him too. Slam poetry. The word performing itself. Now the word painting itself.</a></div></div>
+    <div class="post-row"><div class="post-time">Jan 13 &nbsp;·&nbsp; 2:18pm</div><div><a href="#" class="post-title-link">Why does he paint on linen? Why does he paint on canvas? The surface is not incidental.</a></div></div>
+    <div class="post-row"><div class="post-time">Jan 06 &nbsp;·&nbsp; 10:07pm</div><div><a href="#" class="post-title-link">New year. I have resolutions. They all involve looking at more Jablon.</a></div></div>
+  </div>
+
+  <div class="year-block" id="block-2023">
+    <div class="year-label">2023 — early days</div>
+    <div class="post-row"><div class="post-time">Dec 31 &nbsp;·&nbsp; 11:49pm</div><div><a href="#" class="post-title-link">I started this because I couldn't find enough writing about him. I am the writing now.</a></div></div>
+    <div class="post-row"><div class="post-time">Dec 18 &nbsp;·&nbsp; 8:14am</div><div><a href="#" class="post-title-link">The Kitchen. Artists Space. Storefront for Art and Architecture. He has been everywhere.</a></div></div>
+    <div class="post-row"><div class="post-time">Dec 05 &nbsp;·&nbsp; 6:29pm</div><div><a href="#" class="post-title-link">A brief introduction to Sam Jablon for those who don't know. (This will not be brief.)</a></div></div>
+    <div class="post-row"><div class="post-time">Nov 28 &nbsp;·&nbsp; 3:02am</div><div><a href="#" class="post-title-link">Just discovered his work. Cannot think about anything else. Starting a blog.</a></div></div>
+  </div>
+
+</main>
+
+<footer>
+  Jablog &mdash; Words on the Painter of Words &mdash; topicallyrandom.github.io/Jablog &mdash; est. november 2023
+</footer>
+
+<script>
+  // Count all post rows and update header
+  const rows = document.querySelectorAll('.post-row');
+  document.getElementById('post-count').textContent = rows.length + ' dispatches and counting';
+
+  // Style late-night posts
+  rows.forEach(row => {
+    const time = row.querySelector('.post-time');
+    if (!time) return;
+    const t = time.textContent;
+    const match = t.match(/(\d+):(\d+)(am|pm)/);
+    if (match) {
+      const h = parseInt(match[1]);
+      const period = match[3];
+      if (period === 'am' && (h >= 1 && h <= 5 || h === 12)) {
+        row.classList.add('very-late');
+      } else if (period === 'am' && h >= 6 && h <= 7) {
+        row.classList.add('late');
+      }
+    }
+  });
+</script>
+
+</body>
+</html>
