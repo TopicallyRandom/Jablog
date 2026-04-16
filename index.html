@@ -1,14 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jablog</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Inconsolata:wght@300;400;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --bg:#f9f6ef;--ink:#1a1814;--red:#8b1a1a;--faded:#9a9488;--rule:#ccc8be;--highlight:#fffde7; }
+  body { background:var(--bg);color:var(--ink);font-family:'Crimson Text',serif;font-size:18px;line-height:1.6;min-height:100vh; }
+  .masthead { text-align:center;padding:3rem 2rem 1.5rem;border-bottom:1px solid var(--rule);position:relative; }
+  .masthead::before { content:'';display:block;height:4px;background:repeating-linear-gradient(90deg,var(--ink) 0,var(--ink) 8px,transparent 8px,transparent 16px);margin-bottom:2rem; }
+  .blog-title { font-family:'IM Fell English',serif;font-size:clamp(4rem,14vw,9rem);line-height:0.85;letter-spacing:-0.03em;color:var(--ink); }
+  .blog-title span { color:var(--red);font-style:italic; }
+  .tagline { font-family:'Inconsolata',monospace;font-size:0.78rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--faded);margin-top:1rem; }
+  .post-count { font-family:'Inconsolata',monospace;font-size:0.68rem;color:var(--red);letter-spacing:0.1em;margin-top:0.5rem; }
+  main { max-width:780px;margin:0 auto;padding:2rem 2rem 6rem; }
+  .year-block { margin-bottom:3rem; }
+  .year-label { font-family:'Inconsolata',monospace;font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--faded);border-bottom:1px solid var(--rule);padding-bottom:0.4rem;margin-bottom:1rem; }
+  .post-row { display:grid;grid-template-columns:11rem 1fr;gap:1rem;padding:0.55rem 0;border-bottom:1px solid var(--rule);align-items:baseline;transition:background 0.1s; }
+  .post-row:hover { background:var(--highlight);margin:0 -0.5rem;padding-left:0.5rem;padding-right:0.5rem; }
+  .post-row a { text-decoration:none;color:inherit; }
+  .post-time { font-family:'Inconsolata',monospace;font-size:0.68rem;color:var(--faded);letter-spacing:0.04em;white-space:nowrap; }
+  .post-title-link { font-family:'Crimson Text',serif;font-size:1.05rem;line-height:1.3;color:var(--ink); }
+  .post-title-link:hover { color:var(--red); }
+  .post-row.very-late .post-time { color:var(--red);font-weight:700; }
+  footer { text-align:center;padding:2rem;font-family:'Inconsolata',monospace;font-size:0.62rem;letter-spacing:0.1em;color:var(--faded);border-top:1px solid var(--rule); }
+  @media(max-width:600px) { .post-row { grid-template-columns:1fr;gap:0.2rem; } }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="blog-title">Jab<span>log</span></div>
+  <div class="tagline">Words on the Painter of Words</div>
+  <div class="post-count" id="post-count"></div>
+</div>
+
 <main>
 
   <!-- NEW POSTS GO HERE -->
 
   <div class="year-block" id="block-2026">
     <div class="year-label">2026</div>
-    <div class="post-row"><div class="post-time">Apr 15 &nbsp;·&nbsp; 9:13am</div><div><a href="posts/2026-04-15.html" class="post-title-link">[whatever the Apr 15 post title is]</a></div></div>
+    <div class="post-row"><div class="post-time">Apr 15 &nbsp;·&nbsp; 9:13am</div><div><a href="posts/2026-04-15.html" class="post-title-link">okay but have you actually stood in front of Emit Time</a></div></div>
     <div class="post-row"><div class="post-time">Apr 14 &nbsp;·&nbsp; 9:14am</div><div><a href="posts/2026-04-14.html" class="post-title-link">He showed me something I cannot unsee and I am grateful</a></div></div>
   </div>
 
 </main>
+
+<footer>
+  Jablog &mdash; Words on the Painter of Words &mdash; topicallyrandom.github.io/Jablog &mdash; est. april 2026
+</footer>
+
+<script>
+  const rows = document.querySelectorAll('.post-row');
+  document.getElementById('post-count').textContent = rows.length + ' dispatches and counting';
+  rows.forEach(row => {
+    const time = row.querySelector('.post-time');
+    if (!time) return;
+    const t = time.textContent;
+    const match = t.match(/(\d+):(\d+)(am|pm)/);
+    if (match) {
+      const h = parseInt(match[1]);
+      const period = match[3];
+      if (period === 'am' && (h >= 1 && h <= 5 || h === 12)) row.classList.add('very-late');
+    }
+  });
 </script>
 
 </body>
